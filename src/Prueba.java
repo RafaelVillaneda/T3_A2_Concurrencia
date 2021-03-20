@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -62,11 +63,11 @@ class Ventana extends JFrame{
 		pg2.setValue(0);
 		pg2.setStringPainted(true);
 		pg2.setString("En espera...");
-		/*
+		
 		Llenado llenado=new Llenado(lista, areaTexto1, areaTexto2, pg,pg2);
 		Thread hiloLlenado=new Thread(llenado);
 		hiloLlenado.start();
-		*/
+		
 		JPanel panel3 = new JPanel();
 		panel3.setLayout(new FlowLayout());
 		panel3.setPreferredSize(new Dimension(200,250));
@@ -110,14 +111,64 @@ class Llenado implements Runnable{
 		System.out.println(concidensiasNo);
 		System.out.println(concidensiasSi);
 		
-		//ProgreBar pg2=new ProgreBar(pg,concidensiasSi);
-		//ProgreBar pg3=new ProgreBar(this.pg2,concidensiasNo);
+		ProgreBar pg2=new ProgreBar(pg,concidensiasSi);
+		ProgreBar pg3=new ProgreBar(this.pg2,concidensiasNo);
 		
-		//Thread t=new Thread(pg2);
-		//Thread t2=new Thread(pg3);
+		Thread t=new Thread(pg2);
+		Thread t2=new Thread(pg3);
 		
-		//t.start();
-		//t2.start();
+		t.start();
+		t2.start();
+	}
+	
+}
+class ProgreBar implements Runnable{
+	DecimalFormat df=new DecimalFormat("##.##");
+	JProgressBar pg;
+	long tamaño;
+	
+	
+	public ProgreBar(JProgressBar pg, long tamaño) {
+		super();
+		this.pg = pg;
+		this.tamaño = tamaño;
+	}
+	
+	@Override
+	public void run() {
+		pg.setMaximum(10000000);
+		
+		for(int i=1; i<=tamaño;i+=1000) {
+			pg.setString("Calculando...");
+			
+		pg.setValue(i);
+		try {
+			Thread.sleep(3);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		   }
+	    }
+		//Esto se uso por el herror de rednodeo de Java
+		String op ="("+String.valueOf(tamaño)+"/"+"1000000)"+"*"+"100";
+		System.out.println(op);
+	/*
+		ScriptEngine escaner = new ScriptEngineManager().getEngineByName("js");
+		try {
+			double a = (double)escaner.eval(op);
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		double porcentaje=0.0;
+		double a=tamaño;
+		double b=10000000;
+		porcentaje=a/b;
+		porcentaje=porcentaje*100;
+		System.out.println("Porcentaje: "+porcentaje);
+       	pg.setString(porcentaje+"%");
+		
 	}
 	
 }
