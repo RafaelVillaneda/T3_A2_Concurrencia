@@ -108,8 +108,6 @@ class Llenado implements Runnable{
 			}
 				
 		}//For
-		System.out.println(concidensiasNo);
-		System.out.println(concidensiasSi);
 		
 		ProgreBar pg2=new ProgreBar(pg,concidensiasSi);
 		ProgreBar pg3=new ProgreBar(this.pg2,concidensiasNo);
@@ -123,7 +121,7 @@ class Llenado implements Runnable{
 	
 }
 class ProgreBar implements Runnable{
-	DecimalFormat df=new DecimalFormat("##.##");
+	
 	JProgressBar pg;
 	long tamaño;
 	
@@ -150,14 +148,14 @@ class ProgreBar implements Runnable{
 		   }
 	    }
 		//Esto se uso por el herror de rednodeo de Java
-		String op ="("+String.valueOf(tamaño)+"/"+"1000000)"+"*"+"100";
-		System.out.println(op);
+		//String op ="("+String.valueOf(tamaño)+"/"+"1000000)"+"*"+"100";
+		//System.out.println(op);
 	/*
 		ScriptEngine escaner = new ScriptEngineManager().getEngineByName("js");
 		try {
 			double a = (double)escaner.eval(op);
 		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		*/
@@ -166,7 +164,6 @@ class ProgreBar implements Runnable{
 		double b=10000000;
 		porcentaje=a/b;
 		porcentaje=porcentaje*100;
-		System.out.println("Porcentaje: "+porcentaje);
        	pg.setString(porcentaje+"%");
 		
 	}
