@@ -82,6 +82,45 @@ class Ventana extends JFrame{
 	
 	}
 }
+class Llenado implements Runnable{
+	ArrayList<String> al;
+	JTextArea areaTexto1,areaTexto2;
+	JProgressBar pg,pg2;
+	
+	public Llenado(ArrayList<String> al, JTextArea areaTexto1, JTextArea areaTexto2, JProgressBar pg,JProgressBar pg2) {
+		super();
+		this.al = al;
+		this.areaTexto1 = areaTexto1;
+		this.areaTexto2 = areaTexto2;
+		this.pg = pg;
+		this.pg2=pg2;
+	}
+
+	@Override
+	public void run() {
+		long concidensiasSi=0, concidensiasNo=0;
+		for(String pocicion: al) {
+			if(pocicion.equals("Si")) {
+				areaTexto1.append((concidensiasSi++)+" "+pocicion+"\n");
+			}else {
+				areaTexto2.append((concidensiasNo++)+" "+pocicion+"\n");
+			}
+				
+		}//For
+		System.out.println(concidensiasNo);
+		System.out.println(concidensiasSi);
+		
+		//ProgreBar pg2=new ProgreBar(pg,concidensiasSi);
+		//ProgreBar pg3=new ProgreBar(this.pg2,concidensiasNo);
+		
+		//Thread t=new Thread(pg2);
+		//Thread t2=new Thread(pg3);
+		
+		//t.start();
+		//t2.start();
+	}
+	
+}
 public class Prueba {
 
 	public static void main(String[] args) {
